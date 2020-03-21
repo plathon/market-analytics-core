@@ -1,46 +1,46 @@
-import React, { Component } from 'react'
-import { Form, Input, Button } from 'antd';
-import { Link } from 'react-router-dom'
+import React from "react";
+import { Form, Input, Button } from "antd";
 
-class NormalResetPasswordForm extends Component {
+const layout = {
+  labelCol: { span: 8 },
+  wrapperCol: { span: 16 }
+};
+const tailLayout = {
+  wrapperCol: { offset: 8, span: 16 }
+};
 
-    handleSubmit = (e) => {
-        e.preventDefault();
-        this.props.form.validateFields((err, values) => {
-            if (!err) {
-                //const { email } = values
-                console.log(values)
-            }
-        });
-    }
+const ResetPasswordForm = () => {
+  const onFinish = values => {
+    console.log("Success:", values);
+  };
 
-    render() {
-        const { getFieldDecorator } = this.props.form;
-        return (
-        <Form onSubmit={this.handleSubmit} className="login-form">
+  const onFinishFailed = errorInfo => {
+    console.log("Failed:", errorInfo);
+  };
 
-            <Form.Item label="E-mail">
-              {getFieldDecorator('email', {
-                rules: [{
-                  type: 'email', message: 'The input is not valid E-mail!',
-                }, {
-                  required: true, message: 'Please input your E-mail!',
-                }],
-              })(
-                <Input />
-              )}
-            </Form.Item>
+  return (
+    <Form
+      {...layout}
+      name="basic"
+      initialValues={{ remember: true }}
+      onFinish={onFinish}
+      onFinishFailed={onFinishFailed}
+    >
+      <Form.Item
+        label="Email"
+        name="Email"
+        rules={[{ required: true, message: "Please input your email!" }]}
+      >
+        <Input />
+      </Form.Item>
 
-            <Form.Item>
-                <Button type="primary" htmlType="submit" className="login-form-button" loading={true}>
-                    Reset Password
-                </Button> Or <Link to="/signin">Sign in now!</Link>
-            </Form.Item>
-        </Form>
-        );
-    }
+      <Form.Item {...tailLayout}>
+        <Button type="primary" htmlType="submit">
+          Submit
+        </Button>
+      </Form.Item>
+    </Form>
+  );
+};
 
-}
-
-const WrappedNormalResetPasswordForm = Form.create({ name: 'reset_password_form' })(NormalResetPasswordForm);
-export default WrappedNormalResetPasswordForm
+export default ResetPasswordForm;
