@@ -1,6 +1,8 @@
 import React from "react";
 import { Form, Input, Select, Checkbox, Button } from "antd";
 
+import { Link } from "react-router-dom";
+
 const { Option } = Select;
 
 const formItemLayout = {
@@ -135,7 +137,7 @@ const RegistrationForm = () => {
         {...tailFormItemLayout}
       >
         <Checkbox>
-          I have read the <a href="">agreement</a>
+          I have read the <Link to="/">agreement</Link>
         </Checkbox>
       </Form.Item>
       <Form.Item {...tailFormItemLayout}>

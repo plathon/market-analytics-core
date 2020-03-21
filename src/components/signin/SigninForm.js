@@ -2,6 +2,8 @@ import React from "react";
 import { Form, Input, Button, Checkbox } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 
+import { Link } from "react-router-dom";
+
 const NormalLoginForm = () => {
   const onFinish = values => {
     console.log("Received values of form: ", values);
@@ -50,16 +52,16 @@ const NormalLoginForm = () => {
           <Checkbox>Remember me</Checkbox>
         </Form.Item>
 
-        <a className="login-form-forgot" href="">
+        <Link className="login-form-forgot" to="/">
           Forgot password
-        </a>
+        </Link>
       </Form.Item>
 
       <Form.Item>
         <Button type="primary" htmlType="submit" className="login-form-button">
           Log in
         </Button>
-        &nbsp; Or <a href="">register now!</a>
+        &nbsp; Or <Link to="/">register now!</Link>
       </Form.Item>
     </Form>
   );
