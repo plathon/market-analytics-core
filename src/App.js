@@ -1,54 +1,61 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { Layout } from "antd";
+
+import Routes from "./Routes";
 
 import "./App.css";
 
-import Signin from "./pages/Signin";
-import Signup from "./pages/Signup";
-import ResetPassword from "./pages/ResetPassword";
-import UpdatePassword from "./pages/UpdatePassword";
+const { Content } = Layout;
 
 function App() {
   return (
-    <Router>
-      <div>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/signin">signin</Link>
-            </li>
-            <li>
-              <Link to="/signup">signup</Link>
-            </li>
-            <li>
-              <Link to="/password/reset">reset password</Link>
-            </li>
-            <li>
-              <Link to="/password/update">update password</Link>
-            </li>
-          </ul>
-        </nav>
-        {/* A <Switch> looks through its children <Route>s and
-            renders the first one that matches the current URL. */}
-        <Switch>
-          <Route path="/signin">
-            <Signin />
-          </Route>
-          <Route path="/signup">
-            <Signup />
-          </Route>
-          <Route path="/password/reset">
-            <ResetPassword />
-          </Route>
-          <Route path="/password/update">
-            <UpdatePassword />
-          </Route>
-        </Switch>
-      </div>
-    </Router>
+    <Layout>
+      <Router>
+        {/* Render topbar */}
+        {Routes.map((route, index) => (
+          <Route
+            key={index}
+            path={route.path}
+            exact={route.exact}
+            component={route.topbar}
+          />
+        ))}
+
+        <Layout>
+          {/* Render sidebar */}
+          {Routes.map((route, index) => (
+            <Route
+              key={index}
+              path={route.path}
+              exact={route.exact}
+              component={route.sidebar}
+            />
+          ))}
+
+          <Layout style={{ paddingLeft: 50 }}>
+            <Content
+              className="site-layout-background"
+              style={{
+                padding: 24,
+                margin: 0,
+                minHeight: 280
+              }}
+            >
+              {/* Render main */}
+              {Routes.map((route, index) => (
+                <Route
+                  key={index}
+                  path={route.path}
+                  exact={route.exact}
+                  component={route.main}
+                />
+              ))}
+            </Content>
+          </Layout>
+        </Layout>
+      </Router>
+    </Layout>
   );
 }
 
