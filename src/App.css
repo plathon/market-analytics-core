@@ -1,1 +1,9 @@
 @import "~antd/dist/antd.css";
+
+.ant-layout {
+  background-color: #ffffff;
+}
+
+.ant-layout-header {
+  border-bottom: 1px solid #f0f0f0;
+}
