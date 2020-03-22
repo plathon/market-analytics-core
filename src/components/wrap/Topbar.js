@@ -1,9 +1,9 @@
 import React from "react";
-import { Layout, Menu, Dropdown } from "antd";
-import { UserOutlined } from "@ant-design/icons";
+import { Layout, Menu, Dropdown, Button } from "antd";
+import { UserOutlined, DownOutlined } from "@ant-design/icons";
 const { Header } = Layout;
 
-const subMenu = (
+const submenu = (
   <Menu>
     <Menu.Item>
       <a
@@ -42,19 +42,15 @@ export default () => (
     <div className="logo" style={{ float: "left" }}>
       LOGO
     </div>
-    <Menu
-      theme="light"
-      mode="horizontal"
-      defaultSelectedKeys={["2"]}
-      style={{ lineHeight: "64px", float: "right" }}
-    >
-      <Menu.Item key="1">
-        <Dropdown overlay={subMenu} placement="bottomCenter">
-          <a target="_blank" rel="noopener noreferrer" href="/#">
-            <UserOutlined /> John
-          </a>
-        </Dropdown>
-      </Menu.Item>
-    </Menu>
+
+    <Dropdown overlay={submenu} placement="bottomCenter">
+      <a
+        className="ant-dropdown-link"
+        onClick={e => e.preventDefault()}
+        style={{ float: "right" }}
+      >
+        <UserOutlined /> John
+      </a>
+    </Dropdown>
   </Header>
 );
