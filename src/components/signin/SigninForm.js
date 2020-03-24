@@ -14,7 +14,7 @@ const NormalLoginForm = () => {
       name="normal_login"
       className="login-form"
       initialValues={{
-        remember: true
+        remember: false
       }}
       onFinish={onFinish}
     >
@@ -58,7 +58,12 @@ const NormalLoginForm = () => {
       </Form.Item>
 
       <Form.Item>
-        <Button type="primary" htmlType="submit" className="login-form-button">
+        <Button
+          type="primary"
+          htmlType="submit"
+          className="login-form-button"
+          loading="true"
+        >
           Log in
         </Button>
         &nbsp; Or <Link to="/">register now!</Link>

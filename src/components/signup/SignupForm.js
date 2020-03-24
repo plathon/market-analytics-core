@@ -28,7 +28,7 @@ const tailFormItemLayout = {
   }
 };
 
-const RegistrationForm = () => {
+const RegistrationForm = ({ isLoading }) => {
   const [form] = Form.useForm();
 
   const onFinish = values => {
@@ -135,13 +135,23 @@ const RegistrationForm = () => {
         name="agreement"
         valuePropName="checked"
         {...tailFormItemLayout}
+        rules={[
+          {
+            validator: (rule, value) => {
+              if (!value) {
+                return Promise.reject("You Most accept the terms!");
+              }
+              return Promise.resolve();
+            }
+          }
+        ]}
       >
         <Checkbox>
           I have read the <Link to="/">agreement</Link>
         </Checkbox>
       </Form.Item>
       <Form.Item {...tailFormItemLayout}>
-        <Button type="primary" htmlType="submit">
+        <Button type="primary" htmlType="submit" loading={isLoading}>
           Register
         </Button>
       </Form.Item>
