@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import FirebaseContext from "../context/FirebaseContext";
 import { Row, Col } from "antd";
 
 import SignupForm from "../components/signup/SignupForm";
 
 function Signup() {
+  const firebase = useContext(FirebaseContext);
   const [isLoading, setIsLoading] = useState(false);
   return (
     <Row>
