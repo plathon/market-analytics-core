@@ -38,7 +38,7 @@ function Signup() {
       history.replace("/signin");
     } catch (error) {
       setIsLoading(false);
-      message.error(error);
+      message.error(error.message);
     }
   }
 
