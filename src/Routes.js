@@ -5,6 +5,7 @@ import Topbar from "./components/wrap/Topbar";
 
 import RegisterPage from "./pages/Signup";
 import LoginPage from "./pages/Signin";
+import LogoutPage from "./pages/Logout";
 
 import ResetPasswordPage from "./pages/ResetPassword";
 import UpdatePasswordPage from "./pages/UpdatePassword";
@@ -30,6 +31,12 @@ const routes = [
     topbar: () => <div></div>,
     sidebar: () => <div></div>,
     main: () => <LoginPage />
+  },
+  {
+    path: "/logout",
+    topbar: () => <div></div>,
+    sidebar: () => <div></div>,
+    main: () => <LogoutPage />
   },
   {
     path: "/password/reset",
