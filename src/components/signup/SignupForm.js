@@ -28,12 +28,10 @@ const tailFormItemLayout = {
   }
 };
 
-const RegistrationForm = ({ isLoading }) => {
+const RegistrationForm = ({ isLoading, HandleSignupUser }) => {
   const [form] = Form.useForm();
 
-  const onFinish = values => {
-    console.log("Received values of form: ", values);
-  };
+  const onFinish = values => HandleSignupUser(values);
 
   const prefixSelector = (
     <Form.Item name="prefix" noStyle>

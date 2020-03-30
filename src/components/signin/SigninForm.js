@@ -62,7 +62,7 @@ const NormalLoginForm = () => {
           type="primary"
           htmlType="submit"
           className="login-form-button"
-          loading="true"
+          loading="false"
         >
           Log in
         </Button>
