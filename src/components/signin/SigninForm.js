@@ -4,10 +4,8 @@ import { UserOutlined, LockOutlined } from "@ant-design/icons";
 
 import { Link } from "react-router-dom";
 
-const NormalLoginForm = () => {
-  const onFinish = values => {
-    console.log("Received values of form: ", values);
-  };
+const NormalLoginForm = ({ isLoading, handleSignin }) => {
+  const onFinish = data => handleSignin(data);
 
   return (
     <Form
@@ -19,17 +17,17 @@ const NormalLoginForm = () => {
       onFinish={onFinish}
     >
       <Form.Item
-        name="username"
+        name="email"
         rules={[
           {
             required: true,
-            message: "Please input your Username!"
+            message: "Please input your Email!"
           }
         ]}
       >
         <Input
           prefix={<UserOutlined className="site-form-item-icon" />}
-          placeholder="Username"
+          placeholder="Email"
         />
       </Form.Item>
       <Form.Item
@@ -62,7 +60,7 @@ const NormalLoginForm = () => {
           type="primary"
           htmlType="submit"
           className="login-form-button"
-          loading="false"
+          loading={isLoading}
         >
           Log in
         </Button>
