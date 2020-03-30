@@ -2,7 +2,6 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { Layout, Menu, Dropdown } from "antd";
 import { UserOutlined } from "@ant-design/icons";
-import FirebaseContext from "../../context/FirebaseContext";
 const { Header } = Layout;
 
 const menuItems = [
@@ -35,25 +34,21 @@ const menu = (
   </Menu>
 );
 
-export default () => {
-  const firebase = useContext(FirebaseContext);
+export default () => (
+  <Header className="header" style={{ background: "#fff" }}>
+    <div className="logo" style={{ float: "left" }}>
+      LOGO
+    </div>
 
-  return (
-    <Header className="header" style={{ background: "#fff" }}>
-      <div className="logo" style={{ float: "left" }}>
-        LOGO
-      </div>
-
-      <Dropdown overlay={menu} placement="bottomCenter">
-        <a
-          className="ant-dropdown-link"
-          onClick={e => e.preventDefault()}
-          style={{ float: "right" }}
-          href="/#"
-        >
-          <UserOutlined />
-        </a>
-      </Dropdown>
-    </Header>
-  );
-};
+    <Dropdown overlay={menu} placement="bottomCenter">
+      <a
+        className="ant-dropdown-link"
+        onClick={e => e.preventDefault()}
+        style={{ float: "right" }}
+        href="/#"
+      >
+        <UserOutlined />
+      </a>
+    </Dropdown>
+  </Header>
+);
