@@ -1,7 +1,5 @@
 import React from "react";
-import { Form, Input, Select, Checkbox, Button } from "antd";
-
-import { Link } from "react-router-dom";
+import { Form, Input, Select, Button } from "antd";
 
 const { Option } = Select;
 
@@ -52,6 +50,8 @@ const ProfileEditForm = ({ isLoading, HandleSignupUser }) => {
       }}
       scrollToFirstError
     >
+      <p>Update you profile</p>
+
       <Form.Item
         name="name"
         label="Name"
@@ -66,62 +66,6 @@ const ProfileEditForm = ({ isLoading, HandleSignupUser }) => {
       </Form.Item>
 
       <Form.Item
-        name="email"
-        label="E-mail"
-        rules={[
-          {
-            type: "email",
-            message: "The input is not valid E-mail!"
-          },
-          {
-            required: true,
-            message: "Please input your E-mail!"
-          }
-        ]}
-      >
-        <Input />
-      </Form.Item>
-
-      <Form.Item
-        name="password"
-        label="Password"
-        rules={[
-          {
-            required: true,
-            message: "Please input your password!"
-          }
-        ]}
-        hasFeedback
-      >
-        <Input.Password />
-      </Form.Item>
-
-      <Form.Item
-        name="confirm"
-        label="Confirm Password"
-        dependencies={["password"]}
-        hasFeedback
-        rules={[
-          {
-            required: true,
-            message: "Please confirm your password!"
-          },
-          ({ getFieldValue }) => ({
-            validator(rule, value) {
-              if (!value || getFieldValue("password") === value) {
-                return Promise.resolve();
-              }
-              return Promise.reject(
-                "The two passwords that you entered do not match!"
-              );
-            }
-          })
-        ]}
-      >
-        <Input.Password />
-      </Form.Item>
-
-      <Form.Item
         name="phone"
         label="Phone Number"
         rules={[{ required: true, message: "Please input your phone number!" }]}
@@ -129,28 +73,9 @@ const ProfileEditForm = ({ isLoading, HandleSignupUser }) => {
         <Input addonBefore={prefixSelector} style={{ width: "100%" }} />
       </Form.Item>
 
-      <Form.Item
-        name="agreement"
-        valuePropName="checked"
-        {...tailFormItemLayout}
-        rules={[
-          {
-            validator: (rule, value) => {
-              if (!value) {
-                return Promise.reject("You Most accept the terms!");
-              }
-              return Promise.resolve();
-            }
-          }
-        ]}
-      >
-        <Checkbox>
-          I have read the <Link to="/">agreement</Link>
-        </Checkbox>
-      </Form.Item>
       <Form.Item {...tailFormItemLayout}>
         <Button type="primary" htmlType="submit" loading={isLoading}>
-          Register
+          Update
         </Button>
       </Form.Item>
     </Form>
