@@ -50,7 +50,7 @@ const NormalLoginForm = ({ isLoading, handleSignin }) => {
           <Checkbox>Remember me</Checkbox>
         </Form.Item>
 
-        <Link className="login-form-forgot" to="/">
+        <Link className="login-form-forgot" to="/password/reset">
           Forgot password
         </Link>
       </Form.Item>
@@ -64,7 +64,7 @@ const NormalLoginForm = ({ isLoading, handleSignin }) => {
         >
           Log in
         </Button>
-        &nbsp; Or <Link to="/">register now!</Link>
+        &nbsp; Or <Link to="/signup">register now!</Link>
       </Form.Item>
     </Form>
   );
