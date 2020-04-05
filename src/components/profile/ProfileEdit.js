@@ -5,12 +5,15 @@ import EmailEditForm from "./EmailEditForm";
 import PasswordEditForm from "./PasswordEditForm";
 import ProfileEditForm from "./ProfileEditForm";
 
-function ProfileEdit() {
+function ProfileEdit({ isLoading, handlerUpdatePassword }) {
   return (
     <div>
       <EmailEditForm />
       <Divider />
-      <PasswordEditForm />
+      <PasswordEditForm
+        isLoading={isLoading}
+        handlerUpdatePassword={handlerUpdatePassword}
+      />
       <Divider />
       <ProfileEditForm />
     </div>

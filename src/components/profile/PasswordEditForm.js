@@ -24,10 +24,15 @@ const tailFormItemLayout = {
   }
 };
 
-const PasswordEditForm = ({ isLoading, handlerEditPassword }) => {
+const PasswordEditForm = ({ isLoading, handlerUpdatePassword }) => {
   const [form] = Form.useForm();
 
-  const onFinish = values => handlerEditPassword(values);
+  const onFinish = values => {
+    handlerUpdatePassword({
+      old_password: values.old_password,
+      new_password: values.new_password
+    });
+  };
 
   return (
     <Form
@@ -43,7 +48,7 @@ const PasswordEditForm = ({ isLoading, handlerEditPassword }) => {
       <p>Update your password</p>
 
       <Form.Item
-        name="current_password"
+        name="old_password"
         label="Current Password"
         rules={[
           {
@@ -57,7 +62,7 @@ const PasswordEditForm = ({ isLoading, handlerEditPassword }) => {
       </Form.Item>
 
       <Form.Item
-        name="password"
+        name="new_password"
         label="New Password"
         rules={[
           {
@@ -73,7 +78,7 @@ const PasswordEditForm = ({ isLoading, handlerEditPassword }) => {
       <Form.Item
         name="confirm"
         label="Confirm New Password"
-        dependencies={["password"]}
+        dependencies={["new_password"]}
         hasFeedback
         rules={[
           {
@@ -82,7 +87,7 @@ const PasswordEditForm = ({ isLoading, handlerEditPassword }) => {
           },
           ({ getFieldValue }) => ({
             validator(rule, value) {
-              if (!value || getFieldValue("password") === value) {
+              if (!value || getFieldValue("new_password") === value) {
                 return Promise.resolve();
               }
               return Promise.reject(

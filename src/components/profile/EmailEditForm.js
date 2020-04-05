@@ -47,12 +47,14 @@ const EmailEditForm = ({ isLoading, handlerEditEmail }) => {
                 }
               ]}
             >
-              <Input />
+              <Input disabled />
             </Form.Item>
           </Col>
 
           <Col span={12}>
-            <Button loading={isLoading}>Update</Button>
+            <Button loading={isLoading} disabled>
+              Update
+            </Button>
           </Col>
         </Row>
       </Form.Item>
