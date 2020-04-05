@@ -1,5 +1,8 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import { Table, Tag } from "antd";
+
+import firebaseContext from "../context/FirebaseContext";
 
 const columns = [
   {
@@ -76,4 +79,16 @@ const data = [
   }
 ];
 
-export default () => <Table columns={columns} dataSource={data} />;
+function HomePage() {
+  const history = useHistory();
+  const firebase = useContext(firebaseContext);
+
+  useEffect(() => {
+    const user = firebase.auth().currentUser;
+    if (!user) history.replace("/signin");
+  });
+
+  return <Table columns={columns} dataSource={data} />;
+}
+
+export default HomePage;
