@@ -1,38 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Layout, Menu, Dropdown } from "antd";
-import { UserOutlined } from "@ant-design/icons";
+import { Layout } from "antd";
+
+import { Popover, Position, Menu as MenuEG, IconButton } from "evergreen-ui";
+
 const { Header } = Layout;
-
-const menuItems = [
-  {
-    name: "Profile",
-    to: "/profile"
-  },
-  {
-    name: "Billing",
-    to: "/billing"
-  },
-  {
-    name: "Settings",
-    to: "/settings"
-  },
-  {
-    name: "Logout",
-    to: "/logout"
-  }
-];
-
-const menu = (
-  <Menu>
-    {menuItems.map((menuItem, i) => (
-      <Menu.Item key={i}>
-        <Link to={menuItem.to}>{menuItem.name}</Link>
-      </Menu.Item>
-    ))}
-    {/*<Menu.Divider />*/}
-  </Menu>
-);
 
 export default () => (
   <Header className="header" style={{ background: "#fff" }}>
@@ -40,15 +12,29 @@ export default () => (
       LOGO
     </div>
 
-    <Dropdown overlay={menu} placement="bottomCenter">
-      <a
-        className="ant-dropdown-link"
-        onClick={e => e.preventDefault()}
-        style={{ float: "right" }}
-        href="/#"
-      >
-        <UserOutlined />
-      </a>
-    </Dropdown>
+    <Popover
+      position={Position.BOTTOM_LEFT}
+      content={
+        <MenuEG>
+          <MenuEG.Group title="Actions">
+            <Link to="/profile">
+              <MenuEG.Item icon="people">Profile</MenuEG.Item>
+            </Link>
+            <MenuEG.Item icon="circle-arrow-right">Move...</MenuEG.Item>
+            <MenuEG.Item icon="edit" secondaryText="⌘R">
+              Rename...
+            </MenuEG.Item>
+          </MenuEG.Group>
+          <MenuEG.Divider />
+          <MenuEG.Group title="destructive">
+            <MenuEG.Item icon="trash" intent="danger">
+              Delete...
+            </MenuEG.Item>
+          </MenuEG.Group>
+        </MenuEG>
+      }
+    >
+      <IconButton marginRight={16} float="right" marginTop={15} icon="cog" />
+    </Popover>
   </Header>
 );

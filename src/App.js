@@ -34,15 +34,8 @@ function App() {
               />
             ))}
 
-            <Layout style={{ paddingLeft: 50 }}>
-              <Content
-                className="site-layout-background"
-                style={{
-                  padding: 24,
-                  margin: 0,
-                  minHeight: 280
-                }}
-              >
+            <Layout style={{ padding: 20 }}>
+              <Content>
                 {/* Render main */}
                 {Routes.map((route, index) => (
                   <Route

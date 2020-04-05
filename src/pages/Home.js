@@ -84,8 +84,9 @@ function HomePage() {
   const firebase = useContext(firebaseContext);
 
   useEffect(() => {
-    const user = firebase.auth().currentUser;
-    if (!user) history.replace("/signin");
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (!user) history.push("/signin");
+    });
   });
 
   return <Table columns={columns} dataSource={data} />;
