@@ -8,7 +8,6 @@ import LoginPage from "./pages/Signin";
 import LogoutPage from "./pages/Logout";
 
 import ResetPasswordPage from "./pages/ResetPassword";
-import UpdatePasswordPage from "./pages/UpdatePassword";
 
 import HomePage from "./pages/Home";
 
@@ -43,12 +42,6 @@ const routes = [
     topbar: () => <div></div>,
     sidebar: () => <div></div>,
     main: () => <ResetPasswordPage />
-  },
-  {
-    path: "/password/update",
-    topbar: () => <div></div>,
-    sidebar: () => <div></div>,
-    main: () => <UpdatePasswordPage />
   }
 ];
 

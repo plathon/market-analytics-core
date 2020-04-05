@@ -9,9 +9,9 @@ const tailLayout = {
   wrapperCol: { offset: 8, span: 16 }
 };
 
-const ResetPasswordForm = () => {
+const ResetPasswordForm = ({ handleResetPassword, isLoading }) => {
   const onFinish = values => {
-    console.log("Success:", values);
+    handleResetPassword(values);
   };
 
   const onFinishFailed = errorInfo => {
@@ -28,14 +28,14 @@ const ResetPasswordForm = () => {
     >
       <Form.Item
         label="Email"
-        name="Email"
+        name="email"
         rules={[{ required: true, message: "Please input your email!" }]}
       >
         <Input />
       </Form.Item>
 
       <Form.Item {...tailLayout}>
-        <Button type="primary" htmlType="submit">
+        <Button type="primary" htmlType="submit" loading={isLoading}>
           Submit
         </Button>
       </Form.Item>
