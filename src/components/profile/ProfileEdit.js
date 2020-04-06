@@ -8,14 +8,14 @@ import ProfileEditForm from "./ProfileEditForm";
 function ProfileEdit({ isLoading, handlerUpdatePassword }) {
   return (
     <div>
+      <ProfileEditForm />
+      <Divider />
       <EmailEditForm />
       <Divider />
       <PasswordEditForm
         isLoading={isLoading}
         handlerUpdatePassword={handlerUpdatePassword}
       />
-      <Divider />
-      <ProfileEditForm />
     </div>
   );
 }
