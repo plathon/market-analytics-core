@@ -4,35 +4,38 @@ import { Form, Input, Button } from "antd";
 const formItemLayout = {
   labelCol: {
     xs: { span: 24 },
-    sm: { span: 8 }
+    sm: { span: 8 },
   },
   wrapperCol: {
     xs: { span: 24 },
-    sm: { span: 16 }
-  }
+    sm: { span: 16 },
+  },
 };
 const tailFormItemLayout = {
   wrapperCol: {
     xs: {
       span: 24,
-      offset: 0
+      offset: 0,
     },
     sm: {
       span: 16,
-      offset: 8
-    }
-  }
+      offset: 8,
+    },
+  },
 };
 
 const PasswordEditForm = ({ isLoading, handlerUpdatePassword }) => {
   const [form] = Form.useForm();
 
-  const onFinish = values => {
-    handlerUpdatePassword({
-      old_password: values.old_password,
-      new_password: values.new_password
-    });
-  };
+  async function onFinish(values) {
+    try {
+      await handlerUpdatePassword({
+        old_password: values.old_password,
+        new_password: values.new_password,
+      });
+      form.resetFields();
+    } catch (error) {}
+  }
 
   return (
     <Form
@@ -41,7 +44,7 @@ const PasswordEditForm = ({ isLoading, handlerUpdatePassword }) => {
       name="register"
       onFinish={onFinish}
       initialValues={{
-        prefix: "55"
+        prefix: "55",
       }}
       scrollToFirstError
     >
@@ -53,8 +56,8 @@ const PasswordEditForm = ({ isLoading, handlerUpdatePassword }) => {
         rules={[
           {
             required: true,
-            message: "Please input your password!"
-          }
+            message: "Please input your password!",
+          },
         ]}
         hasFeedback
       >
@@ -67,8 +70,8 @@ const PasswordEditForm = ({ isLoading, handlerUpdatePassword }) => {
         rules={[
           {
             required: true,
-            message: "Please input your password!"
-          }
+            message: "Please input your password!",
+          },
         ]}
         hasFeedback
       >
@@ -83,7 +86,7 @@ const PasswordEditForm = ({ isLoading, handlerUpdatePassword }) => {
         rules={[
           {
             required: true,
-            message: "Please confirm your password!"
+            message: "Please confirm your password!",
           },
           ({ getFieldValue }) => ({
             validator(rule, value) {
@@ -93,8 +96,8 @@ const PasswordEditForm = ({ isLoading, handlerUpdatePassword }) => {
               return Promise.reject(
                 "The two passwords that you entered do not match!"
               );
-            }
-          })
+            },
+          }),
         ]}
       >
         <Input.Password />

@@ -12,30 +12,34 @@ function ProfileEdit() {
   const history = useHistory();
 
   useEffect(() => {
-    firebase.auth().onAuthStateChanged(function(user) {
+    firebase.auth().onAuthStateChanged(function (user) {
       if (!user) history.push("/signin");
     });
   });
 
-  async function handlerUpdatePassword(userData) {
-    setIsloading(true);
-    const { old_password, new_password } = userData;
-    try {
-      const user = firebase.auth().currentUser;
-      const credential = firebase.auth.EmailAuthProvider.credential(
-        user.email,
-        old_password
-      );
+  function handlerUpdatePassword(userData) {
+    return new Promise(async (resolve, reject) => {
+      setIsloading(true);
+      const { old_password, new_password } = userData;
+      try {
+        const user = firebase.auth().currentUser;
+        const credential = firebase.auth.EmailAuthProvider.credential(
+          user.email,
+          old_password
+        );
 
-      await user.reauthenticateWithCredential(credential);
-      await user.updatePassword(new_password);
+        await user.reauthenticateWithCredential(credential);
+        await user.updatePassword(new_password);
 
-      message.success("Password was successfuly updated. ;)");
-      setIsloading(false);
-    } catch (error) {
-      message.error(error.message);
-      setIsloading(false);
-    }
+        message.success("Password was successfuly updated. ;)");
+        setIsloading(false);
+        resolve();
+      } catch (error) {
+        message.error(error.message);
+        setIsloading(false);
+        reject(error);
+      }
+    });
   }
 
   return (
