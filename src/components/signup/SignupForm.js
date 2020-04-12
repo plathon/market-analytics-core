@@ -8,30 +8,30 @@ const { Option } = Select;
 const formItemLayout = {
   labelCol: {
     xs: { span: 24 },
-    sm: { span: 8 }
+    sm: { span: 8 },
   },
   wrapperCol: {
     xs: { span: 24 },
-    sm: { span: 16 }
-  }
+    sm: { span: 16 },
+  },
 };
 const tailFormItemLayout = {
   wrapperCol: {
     xs: {
       span: 24,
-      offset: 0
+      offset: 0,
     },
     sm: {
       span: 16,
-      offset: 8
-    }
-  }
+      offset: 8,
+    },
+  },
 };
 
-const RegistrationForm = ({ isLoading, HandleSignupUser }) => {
+const RegistrationForm = ({ isLoading, handleSignupUser }) => {
   const [form] = Form.useForm();
 
-  const onFinish = values => HandleSignupUser(values);
+  const onFinish = (values) => handleSignupUser(values);
 
   const prefixSelector = (
     <Form.Item name="prefix" noStyle>
@@ -48,7 +48,7 @@ const RegistrationForm = ({ isLoading, HandleSignupUser }) => {
       name="register"
       onFinish={onFinish}
       initialValues={{
-        prefix: "55"
+        prefix: "55",
       }}
       scrollToFirstError
     >
@@ -58,8 +58,8 @@ const RegistrationForm = ({ isLoading, HandleSignupUser }) => {
         rules={[
           {
             required: true,
-            message: "Please input your E-mail!"
-          }
+            message: "Please input your E-mail!",
+          },
         ]}
       >
         <Input />
@@ -71,12 +71,12 @@ const RegistrationForm = ({ isLoading, HandleSignupUser }) => {
         rules={[
           {
             type: "email",
-            message: "The input is not valid E-mail!"
+            message: "The input is not valid E-mail!",
           },
           {
             required: true,
-            message: "Please input your E-mail!"
-          }
+            message: "Please input your E-mail!",
+          },
         ]}
       >
         <Input />
@@ -88,8 +88,8 @@ const RegistrationForm = ({ isLoading, HandleSignupUser }) => {
         rules={[
           {
             required: true,
-            message: "Please input your password!"
-          }
+            message: "Please input your password!",
+          },
         ]}
         hasFeedback
       >
@@ -104,7 +104,7 @@ const RegistrationForm = ({ isLoading, HandleSignupUser }) => {
         rules={[
           {
             required: true,
-            message: "Please confirm your password!"
+            message: "Please confirm your password!",
           },
           ({ getFieldValue }) => ({
             validator(rule, value) {
@@ -114,8 +114,8 @@ const RegistrationForm = ({ isLoading, HandleSignupUser }) => {
               return Promise.reject(
                 "The two passwords that you entered do not match!"
               );
-            }
-          })
+            },
+          }),
         ]}
       >
         <Input.Password />
@@ -140,8 +140,8 @@ const RegistrationForm = ({ isLoading, HandleSignupUser }) => {
                 return Promise.reject("You Most accept the terms!");
               }
               return Promise.resolve();
-            }
-          }
+            },
+          },
         ]}
       >
         <Checkbox>

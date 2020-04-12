@@ -27,9 +27,11 @@ export default () => (
           </MenuEG.Group>
           <MenuEG.Divider />
           <MenuEG.Group title="destructive">
-            <MenuEG.Item icon="trash" intent="danger">
-              Delete...
-            </MenuEG.Item>
+            <Link to="/logout">
+              <MenuEG.Item icon="log-out" intent="danger">
+                Logout
+              </MenuEG.Item>
+            </Link>
           </MenuEG.Group>
         </MenuEG>
       }

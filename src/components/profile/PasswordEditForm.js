@@ -24,12 +24,12 @@ const tailFormItemLayout = {
   },
 };
 
-const PasswordEditForm = ({ isLoading, handlerUpdatePassword }) => {
+const PasswordEditForm = ({ isLoading, handleUpdatePassword }) => {
   const [form] = Form.useForm();
 
   async function onFinish(values) {
     try {
-      await handlerUpdatePassword({
+      await handleUpdatePassword({
         old_password: values.old_password,
         new_password: values.new_password,
       });
@@ -41,7 +41,7 @@ const PasswordEditForm = ({ isLoading, handlerUpdatePassword }) => {
     <Form
       {...formItemLayout}
       form={form}
-      name="register"
+      name="passwordEdit"
       onFinish={onFinish}
       initialValues={{
         prefix: "55",

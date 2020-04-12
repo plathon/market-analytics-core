@@ -1,15 +1,14 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Redirect, useLocation } from "react-router-dom";
-import firebaseContext from "../context/FirebaseContext";
+import firebaseService from "../services/FirebaseService";
 import { message } from "antd";
 
 function Logout() {
-  const firebase = useContext(firebaseContext);
   const location = useLocation();
 
   (async function logUserOut() {
     try {
-      await firebase.auth().signOut();
+      await firebaseService.auth().signOut();
     } catch (error) {
       message.error(error.message);
     }

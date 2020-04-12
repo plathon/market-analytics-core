@@ -1,29 +1,38 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import firebaseContext from "../context/FirebaseContext";
+import { Row, Col, PageHeader, message, Divider } from "antd";
+import firebaseService from "../services/FirebaseService";
 
-import { Row, Col, PageHeader, message } from "antd";
-
-import ProfileEditForm from "../components/profile/ProfileEdit";
+import EmailEditForm from "../components/profile/EmailEditForm";
+import PasswordEditForm from "../components/profile/PasswordEditForm";
+import ProfileEditForm from "../components/profile/ProfileEditForm";
 
 function ProfileEdit() {
   const [isLoading, setIsloading] = useState(false);
-  const firebase = useContext(firebaseContext);
+  const [isReceivingInitData, setIsReceivingInitData] = useState(true);
+  const [userName, setUserName] = useState(null);
+  const [userEmail, setUserEmail] = useState(null);
+  const [userPhone, setUserPhone] = useState(null);
+
   const history = useHistory();
 
   useEffect(() => {
-    firebase.auth().onAuthStateChanged(function (user) {
-      if (!user) history.push("/signin");
+    firebaseService.auth().onAuthStateChanged((user) => {
+      if (!user) return history.push("/signin");
+      setUserName(user.displayName);
+      setUserEmail(user.email);
+      setUserPhone(user.phoneNumber);
+      setIsReceivingInitData(false);
     });
-  });
+  }, [history]);
 
-  function handlerUpdatePassword(userData) {
+  function handleUpdatePassword(userData) {
     return new Promise(async (resolve, reject) => {
       setIsloading(true);
       const { old_password, new_password } = userData;
       try {
-        const user = firebase.auth().currentUser;
-        const credential = firebase.auth.EmailAuthProvider.credential(
+        const user = firebaseService.auth().currentUser;
+        const credential = firebaseService.auth.EmailAuthProvider.credential(
           user.email,
           old_password
         );
@@ -42,15 +51,31 @@ function ProfileEdit() {
     });
   }
 
+  async function handleUpdateProfile(userData) {
+    setIsloading(true);
+    const { name, phone } = userData;
+    try {
+      await firebaseService.auth().currentUser.updateProfile({
+        displayName: name,
+        phoneNumber: phone,
+      });
+      message.success("Profile successfully updated.");
+      setIsloading(false);
+    } catch (error) {
+      message.error(error.message);
+      setIsloading(false);
+    }
+  }
+
   return (
     <div>
       <Row>
         <Col>
           <PageHeader
             className="site-page-header"
-            onBack={() => null}
+            onBack={() => history.goBack()}
             title="Profile"
-            subTitle="Update user profile"
+            subTitle="/edit"
           />
         </Col>
       </Row>
@@ -58,8 +83,21 @@ function ProfileEdit() {
         <Col xs={2} sm={4} md={6} lg={6} xl={6}></Col>
         <Col xs={20} sm={16} md={12} lg={10} xl={10}>
           <ProfileEditForm
-            handlerUpdatePassword={handlerUpdatePassword}
+            handleUpdateProfile={handleUpdateProfile}
+            isReceivingInitData={isReceivingInitData}
             isLoading={isLoading}
+            userName={userName}
+            setUserPhone={userPhone}
+          />
+          <Divider />
+          <EmailEditForm
+            userEmail={userEmail}
+            isReceivingInitData={isReceivingInitData}
+          />
+          <Divider />
+          <PasswordEditForm
+            isLoading={isLoading}
+            handleUpdatePassword={handleUpdatePassword}
           />
         </Col>
       </Row>

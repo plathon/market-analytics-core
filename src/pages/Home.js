@@ -1,33 +1,33 @@
-import React, { useContext, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { Table, Tag } from "antd";
 
-import firebaseContext from "../context/FirebaseContext";
+import firebaseService from "../services/FirebaseService";
 
 const columns = [
   {
     title: "Name",
     dataIndex: "name",
     key: "name",
-    render: text => <a href="/#">{text}</a>
+    render: (text) => <a href="/#">{text}</a>,
   },
   {
     title: "Age",
     dataIndex: "age",
-    key: "age"
+    key: "age",
   },
   {
     title: "Address",
     dataIndex: "address",
-    key: "address"
+    key: "address",
   },
   {
     title: "Tags",
     key: "tags",
     dataIndex: "tags",
-    render: tags => (
+    render: (tags) => (
       <span>
-        {tags.map(tag => {
+        {tags.map((tag) => {
           let color = tag.length > 5 ? "geekblue" : "green";
           if (tag === "loser") {
             color = "volcano";
@@ -39,7 +39,7 @@ const columns = [
           );
         })}
       </span>
-    )
+    ),
   },
   {
     title: "Action",
@@ -51,8 +51,8 @@ const columns = [
         </a>
         <a href="/#">Delete</a>
       </span>
-    )
-  }
+    ),
+  },
 ];
 
 const data = [
@@ -61,30 +61,29 @@ const data = [
     name: "John Brown",
     age: 32,
     address: "New York No. 1 Lake Park",
-    tags: ["nice", "developer"]
+    tags: ["nice", "developer"],
   },
   {
     key: "2",
     name: "Jim Green",
     age: 42,
     address: "London No. 1 Lake Park",
-    tags: ["loser"]
+    tags: ["loser"],
   },
   {
     key: "3",
     name: "Joe Black",
     age: 32,
     address: "Sidney No. 1 Lake Park",
-    tags: ["cool", "teacher"]
-  }
+    tags: ["cool", "teacher"],
+  },
 ];
 
 function HomePage() {
   const history = useHistory();
-  const firebase = useContext(firebaseContext);
 
   useEffect(() => {
-    firebase.auth().onAuthStateChanged(function(user) {
+    firebaseService.auth().onAuthStateChanged(function (user) {
       if (!user) history.push("/signin");
     });
   });

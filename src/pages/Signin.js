@@ -1,20 +1,20 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Row, Col, message } from "antd";
 
 import SigninForm from "../components/signin/SigninForm";
-import FirebaseContext from "../context/FirebaseContext";
+import firebaseService from "../services/FirebaseService";
 
 function Signin() {
-  const firebase = useContext(FirebaseContext);
   const [isLoading, setIsloading] = useState(false);
+
   const history = useHistory();
 
   async function handleSignin(user) {
     setIsloading(true);
     const { email, password } = user;
     try {
-      await firebase.auth().signInWithEmailAndPassword(email, password);
+      await firebaseService.auth().signInWithEmailAndPassword(email, password);
       setIsloading(false);
       history.replace("/");
     } catch (error) {
